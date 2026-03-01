@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getProduct, getProducts } from '@/lib/products';
 import { CATEGORIES } from '@/lib/types';
 import { ProductCard } from '@/components/ProductCard';
-import { ArrowLeft, ExternalLink, Check } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Check, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function ProductPage() {
@@ -12,8 +12,8 @@ export default function ProductPage() {
   if (!product) {
     return (
       <main className="container py-20 text-center">
-        <h1 className="text-2xl font-bold text-foreground">Produto não encontrado</h1>
-        <Link to="/" className="text-primary mt-4 inline-block">Voltar ao início</Link>
+        <h1 className="text-2xl font-heading font-bold text-foreground uppercase">Produto não encontrado</h1>
+        <Link to="/" className="text-primary mt-4 inline-block font-semibold">Voltar ao início</Link>
       </main>
     );
   }
@@ -26,23 +26,28 @@ export default function ProductPage() {
 
   return (
     <main className="container py-8">
-      <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft size={16} /> Voltar
+      <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground font-medium mb-8 transition-colors">
+        <ArrowLeft size={16} /> VOLTAR
       </Link>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="grid md:grid-cols-2 gap-8"
+        transition={{ duration: 0.5 }}
+        className="grid md:grid-cols-2 gap-8 md:gap-12"
       >
         {/* Image */}
-        <div className="rounded-xl overflow-hidden bg-secondary aspect-square md:aspect-[4/3]">
+        <div className="rounded-3xl overflow-hidden bg-secondary aspect-square relative group">
           <img
             src={product.imageUrl}
             alt={product.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
+          {product.badge && (
+            <span className="badge-tag absolute top-4 left-4 bg-primary text-primary-foreground">
+              {product.badge === 'destaque' ? '🔥 DESTAQUE' : product.badge === 'mais-visto' ? '👀 MAIS VISTO' : '⭐ TOP'}
+            </span>
+          )}
         </div>
 
         {/* Details */}
@@ -50,36 +55,47 @@ export default function ProductPage() {
           {category && (
             <Link
               to={`/categoria/${category.slug}`}
-              className="text-xs font-medium text-primary bg-primary/10 self-start px-2.5 py-1 rounded-full mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-primary self-start mb-4"
             >
               {category.icon} {category.label}
             </Link>
           )}
 
-          <h1 className="text-2xl md:text-3xl font-extrabold text-foreground leading-tight">
+          <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground leading-tight uppercase">
             {product.title}
           </h1>
 
-          <p className="text-muted-foreground mt-3 leading-relaxed">{product.description}</p>
+          <p className="text-muted-foreground mt-4 leading-relaxed">{product.description}</p>
 
           {product.price && (
-            <p className="text-2xl font-extrabold text-primary mt-4">{product.price}</p>
+            <div className="mt-5 flex items-baseline gap-2">
+              <span className="text-3xl font-heading font-bold text-primary">{product.price}</span>
+            </div>
           )}
 
           {/* Benefits */}
-          <ul className="mt-5 space-y-2">
+          <div className="mt-6 space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">BENEFÍCIOS</h3>
             {product.benefits.map((b, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                <Check size={16} className="text-accent mt-0.5 shrink-0" />
-                {b}
-              </li>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 + i * 0.1 }}
+                className="flex items-start gap-3"
+              >
+                <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check size={12} className="text-accent" />
+                </div>
+                <span className="text-sm text-foreground">{b}</span>
+              </motion.div>
             ))}
-          </ul>
+          </div>
 
           {/* Why worth it */}
-          <div className="mt-6 bg-secondary rounded-lg p-4">
-            <h3 className="font-bold text-sm text-foreground mb-1">💡 Por que vale a pena?</h3>
-            <p className="text-sm text-muted-foreground">{product.whyWorthIt}</p>
+          <div className="mt-6 warm-section rounded-2xl p-5">
+            <h3 className="font-heading font-bold text-sm text-foreground mb-2 uppercase">💡 POR QUE VALE A PENA?</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{product.whyWorthIt}</p>
           </div>
 
           {/* CTA */}
@@ -87,22 +103,28 @@ export default function ProductPage() {
             href={product.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="mt-6 inline-flex items-center justify-center gap-2 cta-gradient cta-shadow text-primary-foreground font-bold text-base py-4 px-8 rounded-xl hover:opacity-90 transition-opacity animate-pulse-cta"
+            className="btn-cta mt-8 py-4 px-8 text-sm uppercase tracking-widest"
           >
-            Ver Oferta na Loja <ExternalLink size={18} />
+            VER OFERTA NA LOJA <ExternalLink size={16} />
           </a>
 
-          <p className="text-[11px] text-muted-foreground mt-3">
-            🔒 Este site pode receber comissão por compras realizadas através dos links.
-          </p>
+          <div className="flex items-center gap-2 mt-4 text-muted-foreground">
+            <Shield size={14} />
+            <p className="text-[11px]">
+              Este site pode receber comissão por compras realizadas através dos links.
+            </p>
+          </div>
         </div>
       </motion.div>
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="mt-16">
-          <h2 className="text-xl font-extrabold text-foreground mb-6">Quem viu este produto também gostou</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <section className="mt-20">
+          <div className="flex items-center gap-3 mb-8">
+            <h2 className="section-title">QUEM VIU TAMBÉM GOSTOU</h2>
+            <div className="flex-1 h-px bg-border ml-4" />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
             {related.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} />
             ))}

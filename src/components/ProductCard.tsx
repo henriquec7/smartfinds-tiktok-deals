@@ -1,57 +1,68 @@
 import { Link } from 'react-router-dom';
 import { Product } from '@/lib/types';
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Star } from 'lucide-react';
 
-const BADGE_LABELS: Record<string, string> = {
-  destaque: '🔥 Destaque',
-  'mais-visto': '👀 Mais Visto',
-  'bem-avaliado': '⭐ Bem Avaliado',
+const BADGE_CONFIG: Record<string, { label: string; className: string }> = {
+  destaque: { label: '🔥 DESTAQUE', className: 'bg-primary text-primary-foreground' },
+  'mais-visto': { label: '👀 MAIS VISTO', className: 'bg-foreground text-background' },
+  'bem-avaliado': { label: '⭐ TOP AVALIADO', className: 'bg-accent text-accent-foreground' },
 };
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
+  const badge = product.badge ? BADGE_CONFIG[product.badge] : null;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay: index * 0.08 }}
-      className="group bg-card rounded-lg border border-border card-shadow hover:card-hover-shadow transition-shadow duration-300 overflow-hidden flex flex-col"
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.45, delay: index * 0.07 }}
+      className="card-product group"
     >
-      <Link to={`/produto/${product.id}`} className="block relative overflow-hidden aspect-[4/3]">
+      <Link to={`/produto/${product.id}`} className="block relative overflow-hidden aspect-square">
         <img
           src={product.imageUrl}
           alt={product.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           loading="lazy"
         />
-        {product.badge && (
-          <span className="absolute top-3 left-3 bg-card/90 backdrop-blur-sm text-xs font-semibold px-2.5 py-1 rounded-full text-foreground">
-            {BADGE_LABELS[product.badge]}
+        {/* Gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        {badge && (
+          <span className={`badge-tag absolute top-3 left-3 ${badge.className}`}>
+            {badge.label}
           </span>
         )}
       </Link>
 
       <div className="p-4 flex flex-col flex-1">
         <Link to={`/produto/${product.id}`}>
-          <h3 className="font-bold text-sm leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+          <h3 className="font-heading font-bold text-sm leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-200">
             {product.title}
           </h3>
         </Link>
-        <p className="text-xs text-muted-foreground mt-1.5 line-clamp-2">{product.description}</p>
+
+        <p className="text-xs text-muted-foreground mt-2 line-clamp-2 leading-relaxed">
+          {product.description}
+        </p>
 
         {product.price && (
-          <p className="text-base font-extrabold text-primary mt-3">{product.price}</p>
+          <div className="mt-3 flex items-baseline gap-2">
+            <span className="text-lg font-heading font-bold text-primary">{product.price}</span>
+          </div>
         )}
 
-        <div className="mt-auto pt-3">
+        <div className="mt-auto pt-4">
           <a
             href={product.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="w-full inline-flex items-center justify-center gap-2 cta-gradient cta-shadow text-primary-foreground font-semibold text-sm py-2.5 px-4 rounded-lg hover:opacity-90 transition-opacity"
+            className="btn-cta w-full py-3 px-4 text-xs uppercase tracking-wider"
             onClick={(e) => e.stopPropagation()}
           >
-            Ver Preço Atual <ExternalLink size={14} />
+            VER PREÇO ATUAL <ExternalLink size={13} />
           </a>
         </div>
       </div>

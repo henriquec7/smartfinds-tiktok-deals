@@ -1,5 +1,7 @@
 import { HeroSection } from '@/components/HeroSection';
+import { CategoryBar } from '@/components/CategoryBar';
 import { ProductSection } from '@/components/ProductSection';
+import { ConversionBanner } from '@/components/ConversionBanner';
 import { getProducts } from '@/lib/products';
 
 const Index = () => {
@@ -10,11 +12,13 @@ const Index = () => {
   const bemAvaliados = products.filter(p => p.badge === 'bem-avaliado');
 
   return (
-    <main className="container">
+    <main>
       <HeroSection />
-      <ProductSection title="Produtos em Destaque" emoji="🔥" products={destaques} />
-      <ProductSection title="Mais Vistos" emoji="👀" products={maisVistos} />
-      <ProductSection title="Mais Bem Avaliados" emoji="⭐" products={bemAvaliados} />
+      <CategoryBar />
+      <ProductSection title="PRODUTOS EM DESTAQUE" emoji="🔥" products={destaques} id="destaques" />
+      <ProductSection title="MAIS VISTOS" emoji="👀" products={maisVistos} />
+      <ConversionBanner />
+      <ProductSection title="MAIS BEM AVALIADOS" emoji="⭐" products={bemAvaliados} />
     </main>
   );
 };
