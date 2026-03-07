@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Product, Category, CATEGORIES } from '@/lib/types';
 import { getProducts, saveProduct, deleteProduct } from '@/lib/products';
-import { Plus, Trash2, Edit, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Plus, Trash2, Edit, ArrowLeft, LogOut } from 'lucide-react';
+import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useAdmin } from '@/hooks/useAdmin';
+import { supabase } from '@/integrations/supabase/client';
 
 const emptyProduct: Omit<Product, 'id' | 'createdAt'> = {
   title: '',
@@ -18,6 +20,7 @@ const emptyProduct: Omit<Product, 'id' | 'createdAt'> = {
 };
 
 export default function AdminPage() {
+  const { isAdmin, loading } = useAdmin();
   const [products, setProducts] = useState<Product[]>([]);
   const [editing, setEditing] = useState<Product | null>(null);
   const [form, setForm] = useState(emptyProduct);
@@ -26,6 +29,9 @@ export default function AdminPage() {
   useEffect(() => {
     setProducts(getProducts());
   }, []);
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-muted-foreground">Verificando acesso...</div>;
+  if (!isAdmin) return <Navigate to="/login" replace />;
 
   const refresh = () => setProducts(getProducts());
 
@@ -82,12 +88,20 @@ export default function AdminPage() {
 
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-extrabold text-foreground">⚙️ Painel Admin</h1>
-        <button
-          onClick={() => { setShowForm(true); setEditing(null); setForm(emptyProduct); }}
-          className="inline-flex items-center gap-2 cta-gradient text-primary-foreground font-semibold text-sm py-2.5 px-4 rounded-lg"
-        >
-          <Plus size={16} /> Novo Produto
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => { setShowForm(true); setEditing(null); setForm(emptyProduct); }}
+            className="inline-flex items-center gap-2 cta-gradient text-primary-foreground font-semibold text-sm py-2.5 px-4 rounded-lg"
+          >
+            <Plus size={16} /> Novo Produto
+          </button>
+          <button
+            onClick={async () => { await supabase.auth.signOut(); toast.success('Deslogado!'); }}
+            className="inline-flex items-center gap-2 bg-secondary text-muted-foreground font-medium text-sm py-2.5 px-3 rounded-lg hover:text-foreground transition-colors"
+          >
+            <LogOut size={16} />
+          </button>
+        </div>
       </div>
 
       {showForm && (

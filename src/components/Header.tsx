@@ -3,11 +3,13 @@ import { CATEGORIES } from '@/lib/types';
 import { Menu, X, ShoppingBag } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAdmin } from '@/hooks/useAdmin';
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { isAdmin } = useAdmin();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -49,12 +51,14 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            to="/admin"
-            className="hidden md:inline-flex text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground px-3 py-2 rounded-xl hover:bg-secondary transition-all"
-          >
-            Admin
-          </Link>
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="hidden md:inline-flex text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground px-3 py-2 rounded-xl hover:bg-secondary transition-all"
+            >
+              Admin
+            </Link>
+          )}
           <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-foreground rounded-xl hover:bg-secondary transition-colors">
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -83,13 +87,15 @@ export function Header() {
                   {cat.label}
                 </Link>
               ))}
-              <Link
-                to="/admin"
-                onClick={() => setOpen(false)}
-                className="px-4 py-3 text-sm font-semibold rounded-xl hover:bg-secondary text-muted-foreground flex items-center gap-3 transition-colors"
-              >
-                ⚙️ Admin
-              </Link>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-3 text-sm font-semibold rounded-xl hover:bg-secondary text-muted-foreground flex items-center gap-3 transition-colors"
+                >
+                  ⚙️ Admin
+                </Link>
+              )}
             </div>
           </motion.nav>
         )}
