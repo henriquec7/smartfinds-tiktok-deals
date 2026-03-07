@@ -56,9 +56,9 @@ export default function LoginPage() {
           <p className="text-sm text-muted-foreground mt-1">Acesso exclusivo para administradores</p>
         </div>
 
-        <form onSubmit={handleLogin} className="bg-card border border-border rounded-2xl p-6 space-y-4">
+        <form onSubmit={handleLogin} className="bg-card border border-border rounded-2xl p-6 space-y-5">
           <div>
-            <label className="text-xs font-medium text-muted-foreground mb-1 block">E-mail</label>
+            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">E-mail</label>
             <input
               type="email"
               value={email}
@@ -69,7 +69,7 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground mb-1 block">Senha</label>
+            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Senha</label>
             <input
               type="password"
               value={password}
@@ -82,9 +82,9 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full cta-gradient text-primary-foreground font-bold text-sm py-3 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full cta-gradient text-primary-foreground font-bold text-base py-4 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg mt-2"
           >
-            <Lock size={16} />
+            <Lock size={18} />
             {loading ? 'Entrando...' : 'ENTRAR'}
           </button>
         </form>
