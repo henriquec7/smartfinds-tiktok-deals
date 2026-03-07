@@ -91,9 +91,9 @@ export default function AdminPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => { setShowForm(true); setEditing(null); setForm(emptyProduct); }}
-            className="inline-flex items-center gap-2 cta-gradient text-primary-foreground font-semibold text-sm py-2.5 px-4 rounded-lg"
+            className="inline-flex items-center gap-2 cta-gradient text-primary-foreground font-bold text-base py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
           >
-            <Plus size={16} /> Novo Produto
+            <Plus size={20} /> Novo Produto
           </button>
           <button
             onClick={async () => { await supabase.auth.signOut(); toast.success('Deslogado!'); }}
