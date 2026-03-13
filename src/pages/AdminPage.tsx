@@ -91,7 +91,7 @@ export default function AdminPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => { setShowForm(true); setEditing(null); setForm(emptyProduct); }}
-            className="inline-flex items-center gap-2 cta-gradient text-primary-foreground font-bold text-base py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+            className="btn-cta text-primary-foreground font-bold text-base py-3 px-6 rounded-xl"
           >
             <Plus size={20} /> Novo Produto
           </button>
@@ -202,7 +202,7 @@ export default function AdminPage() {
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button type="submit" className="cta-gradient text-primary-foreground font-semibold text-sm py-2.5 px-6 rounded-lg">
+            <button type="submit" className="btn-cta text-primary-foreground font-semibold text-sm py-2.5 px-6 rounded-lg">
               {editing ? 'Salvar' : 'Adicionar'}
             </button>
             <button type="button" onClick={() => { setShowForm(false); setEditing(null); }} className="bg-secondary text-foreground font-medium text-sm py-2.5 px-6 rounded-lg">
