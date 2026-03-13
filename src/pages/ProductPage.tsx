@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { getProduct, getProducts } from '@/lib/products';
+import { useProduct, useProducts } from '@/hooks/useProducts';
 import { CATEGORIES } from '@/lib/types';
 import { ProductCard } from '@/components/ProductCard';
 import { ArrowLeft, ExternalLink, Check, Shield } from 'lucide-react';
@@ -7,7 +7,12 @@ import { motion } from 'framer-motion';
 
 export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
-  const product = getProduct(id!);
+  const { data: product, isLoading } = useProduct(id!);
+  const { data: allProducts = [] } = useProducts();
+
+  if (isLoading) {
+    return <main className="container py-20 text-center text-muted-foreground">Carregando...</main>;
+  }
 
   if (!product) {
     return (
@@ -18,7 +23,7 @@ export default function ProductPage() {
     );
   }
 
-  const related = getProducts()
+  const related = allProducts
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
 
@@ -36,7 +41,6 @@ export default function ProductPage() {
         transition={{ duration: 0.5 }}
         className="grid md:grid-cols-2 gap-8 md:gap-12"
       >
-        {/* Image */}
         <div className="rounded-3xl overflow-hidden bg-secondary aspect-square relative group">
           <img
             src={product.imageUrl}
@@ -51,7 +55,6 @@ export default function ProductPage() {
           )}
         </div>
 
-        {/* Details */}
         <div className="flex flex-col">
           {category && (
             <Link
@@ -74,7 +77,6 @@ export default function ProductPage() {
             </div>
           )}
 
-          {/* Benefits */}
           <div className="mt-6 space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">BENEFÍCIOS</h3>
             {product.benefits.map((b, i) => (
@@ -93,13 +95,11 @@ export default function ProductPage() {
             ))}
           </div>
 
-          {/* Why worth it */}
           <div className="mt-6 warm-section rounded-2xl p-5">
             <h3 className="font-heading font-bold text-sm text-foreground mb-2 uppercase">💡 POR QUE VALE A PENA?</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{product.whyWorthIt}</p>
           </div>
 
-          {/* CTA */}
           <a
             href={product.affiliateUrl}
             target="_blank"
@@ -118,7 +118,6 @@ export default function ProductPage() {
         </div>
       </motion.div>
 
-      {/* Related */}
       {related.length > 0 && (
         <section className="mt-20">
           <div className="flex items-center gap-3 mb-8">

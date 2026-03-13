@@ -2,10 +2,10 @@ import { HeroSection } from '@/components/HeroSection';
 import { CategoryBar } from '@/components/CategoryBar';
 import { ProductSection } from '@/components/ProductSection';
 import { ConversionBanner } from '@/components/ConversionBanner';
-import { getProducts } from '@/lib/products';
+import { useProducts } from '@/hooks/useProducts';
 
 const Index = () => {
-  const products = getProducts();
+  const { data: products = [], isLoading } = useProducts();
 
   const destaques = products.filter(p => p.badge === 'destaque');
   const maisVistos = products.filter(p => p.badge === 'mais-visto');
@@ -15,10 +15,16 @@ const Index = () => {
     <main>
       <HeroSection />
       <CategoryBar />
-      <ProductSection title="PRODUTOS EM DESTAQUE" emoji="🔥" products={destaques} id="destaques" />
-      <ProductSection title="MAIS VISTOS" emoji="👀" products={maisVistos} />
-      <ConversionBanner />
-      <ProductSection title="MAIS BEM AVALIADOS" emoji="⭐" products={bemAvaliados} />
+      {isLoading ? (
+        <div className="container py-20 text-center text-muted-foreground">Carregando produtos...</div>
+      ) : (
+        <>
+          <ProductSection title="PRODUTOS EM DESTAQUE" emoji="🔥" products={destaques} id="destaques" />
+          <ProductSection title="MAIS VISTOS" emoji="👀" products={maisVistos} />
+          <ConversionBanner />
+          <ProductSection title="MAIS BEM AVALIADOS" emoji="⭐" products={bemAvaliados} />
+        </>
+      )}
     </main>
   );
 };

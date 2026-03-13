@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { CATEGORIES, Category } from '@/lib/types';
-import { getProductsByCategory } from '@/lib/products';
+import { useProductsByCategory } from '@/hooks/useProducts';
 import { ProductCard } from '@/components/ProductCard';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -9,7 +9,7 @@ export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const categoryKey = slug as Category;
   const category = CATEGORIES[categoryKey];
-  const products = getProductsByCategory(categoryKey);
+  const { data: products = [], isLoading } = useProductsByCategory(categoryKey);
 
   if (!category) {
     return (
@@ -40,7 +40,9 @@ export default function CategoryPage() {
         </p>
       </motion.div>
 
-      {products.length === 0 ? (
+      {isLoading ? (
+        <div className="py-20 text-center text-muted-foreground">Carregando...</div>
+      ) : products.length === 0 ? (
         <div className="warm-section rounded-3xl py-20 text-center">
           <p className="text-muted-foreground font-medium">Nenhum produto nesta categoria ainda.</p>
         </div>
