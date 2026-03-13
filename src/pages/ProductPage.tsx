@@ -42,6 +42,7 @@ export default function ProductPage() {
             src={product.imageUrl}
             alt={product.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
           />
           {product.badge && (
             <span className="badge-tag absolute top-4 left-4 bg-primary text-primary-foreground">
