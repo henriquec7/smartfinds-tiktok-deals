@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Product, Category, CATEGORIES } from '@/lib/types';
 import { getProducts, saveProduct, deleteProduct } from '@/lib/products';
 import { Plus, Trash2, Edit, ArrowLeft, LogOut } from 'lucide-react';
+import ImageUpload from '@/components/ImageUpload';
 import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useAdmin } from '@/hooks/useAdmin';
