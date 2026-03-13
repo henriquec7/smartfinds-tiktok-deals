@@ -202,7 +202,7 @@ export default function AdminPage() {
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button type="submit" className="cta-gradient text-primary-foreground font-semibold text-sm py-2.5 px-6 rounded-lg">
+            <button type="submit" className="btn-cta text-primary-foreground font-semibold text-sm py-2.5 px-6 rounded-lg">
               {editing ? 'Salvar' : 'Adicionar'}
             </button>
             <button type="button" onClick={() => { setShowForm(false); setEditing(null); }} className="bg-secondary text-foreground font-medium text-sm py-2.5 px-6 rounded-lg">

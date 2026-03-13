@@ -82,7 +82,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full cta-gradient text-primary-foreground font-bold text-base py-4 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg mt-2"
+            className="w-full btn-cta text-primary-foreground font-bold text-base py-4 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
           >
             <Lock size={18} />
             {loading ? 'Entrando...' : 'ENTRAR'}
