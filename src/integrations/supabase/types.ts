@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      products: {
+        Row: {
+          affiliate_url: string
+          badge: string | null
+          benefits: string[]
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string
+          price: string | null
+          title: string
+          why_worth_it: string
+        }
+        Insert: {
+          affiliate_url?: string
+          badge?: string | null
+          benefits?: string[]
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string
+          price?: string | null
+          title: string
+          why_worth_it?: string
+        }
+        Update: {
+          affiliate_url?: string
+          badge?: string | null
+          benefits?: string[]
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string
+          price?: string | null
+          title?: string
+          why_worth_it?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
