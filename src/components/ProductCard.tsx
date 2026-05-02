@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Product } from '@/lib/types';
 import { motion } from 'framer-motion';
-import { ExternalLink, Star } from 'lucide-react';
+import { ExternalLink, ShieldCheck } from 'lucide-react';
 
 const BADGE_CONFIG: Record<string, { label: string; className: string }> = {
   destaque: { label: '🔥 DESTAQUE', className: 'bg-primary text-primary-foreground' },
@@ -16,7 +16,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.45, delay: index * 0.07 }}
       className="card-product group"
     >
@@ -26,11 +26,13 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           alt={product.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           loading="lazy"
-          onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+          }}
         />
-        {/* Gradient overlay on hover */}
+
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         {badge && (
           <span className={`badge-tag absolute top-3 left-3 ${badge.className}`}>
             {badge.label}
@@ -51,9 +53,16 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
 
         {product.price && (
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-lg font-heading font-bold text-primary">{product.price}</span>
+            <span className="text-lg font-heading font-bold text-primary">
+              {product.price}
+            </span>
           </div>
         )}
+
+        <div className="flex items-center gap-1.5 mt-3 text-[11px] text-muted-foreground">
+          <ShieldCheck size={12} />
+          Redireciona para loja oficial
+        </div>
 
         <div className="mt-auto pt-4">
           <a
@@ -66,6 +75,13 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
             VER PREÇO ATUAL <ExternalLink size={13} />
           </a>
         </div>
+
+        <Link
+          to={`/produto/${product.id}`}
+          className="mt-3 text-center text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Ver detalhes do produto
+        </Link>
       </div>
     </motion.div>
   );
