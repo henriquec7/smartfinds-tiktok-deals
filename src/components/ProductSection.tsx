@@ -20,11 +20,17 @@ export function ProductSection({ title, emoji, products, id }: Props) {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="flex items-center gap-3 mb-8"
+          className="flex flex-col gap-3 mb-8"
         >
-          {emoji && <span className="text-2xl">{emoji}</span>}
-          <h2 className="section-title">{title}</h2>
-          <div className="flex-1 h-px bg-border ml-4" />
+          <div className="flex items-center gap-3">
+            {emoji && <span className="text-2xl">{emoji}</span>}
+            <h2 className="section-title">{title}</h2>
+            <div className="flex-1 h-px bg-border ml-4" />
+          </div>
+
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            Produtos selecionados para quem quer comparar rápido, ver detalhes e conferir a oferta atual direto na loja oficial.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
