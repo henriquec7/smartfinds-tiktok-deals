@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Zap } from 'lucide-react';
+import { ShieldCheck, Zap } from 'lucide-react';
 
 export function ConversionBanner() {
   return (
@@ -18,13 +18,19 @@ export function ConversionBanner() {
             </div>
           </div>
 
-          <h2 className="section-title mb-3">ENCONTROU ALGO QUE GOSTOU?</h2>
-          <p className="text-muted-foreground max-w-md mx-auto text-sm leading-relaxed">
-            Todos os nossos produtos são cuidadosamente selecionados com foco em qualidade e custo-benefício. 
-            Os preços podem variar, então aproveite enquanto estão disponíveis!
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary mb-4">
+            <ShieldCheck size={15} />
+            Curadoria com redirecionamento seguro
+          </div>
+
+          <h2 className="section-title mb-3">VIU UM PRODUTO INTERESSANTE?</h2>
+
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed">
+            Clique para conferir o preço atualizado na loja oficial. Os valores podem mudar conforme disponibilidade, promoção e estoque do vendedor.
           </p>
+
           <a href="#destaques" className="btn-cta py-3.5 px-8 text-sm uppercase tracking-wider mt-6 inline-flex">
-            VERIFICAR DISPONIBILIDADE
+            CONFERIR PRODUTOS EM DESTAQUE
           </a>
         </motion.div>
       </div>
