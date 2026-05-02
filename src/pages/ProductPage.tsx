@@ -100,20 +100,24 @@ export default function ProductPage() {
             <p className="text-sm text-muted-foreground leading-relaxed">{product.whyWorthIt}</p>
           </div>
 
-          <a
-            href={product.affiliateUrl}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="btn-cta mt-8 py-4 px-8 text-sm uppercase tracking-widest"
-          >
-            VER OFERTA NA LOJA <ExternalLink size={16} />
-          </a>
-
-          <div className="flex items-center gap-2 mt-4 text-muted-foreground">
-            <Shield size={14} />
-            <p className="text-[11px]">
-              Este site pode receber comissão por compras realizadas através dos links.
+          <div className="mt-8 rounded-2xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+              Oferta externa
             </p>
+            <a
+              href={product.affiliateUrl}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="btn-cta w-full py-4 px-8 text-sm uppercase tracking-widest"
+            >
+              CONFERIR OFERTA NA LOJA <ExternalLink size={16} />
+            </a>
+            <div className="flex items-start gap-2 mt-3 text-muted-foreground">
+              <Shield size={14} className="mt-0.5 shrink-0" />
+              <p className="text-[11px] leading-relaxed">
+                Você será redirecionado para a loja oficial para conferir o preço atualizado e finalizar a compra com segurança. Este site pode receber comissão por compras realizadas através dos links.
+              </p>
+            </div>
           </div>
         </div>
       </motion.div>
