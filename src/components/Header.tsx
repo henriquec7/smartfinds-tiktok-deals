@@ -1,39 +1,39 @@
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES } from '@/lib/types';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAdmin } from '@/hooks/useAdmin';
+import { KSLogo } from './KSLogo';
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
   const location = useLocation();
   const { isAdmin } = useAdmin();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
+
     window.addEventListener('scroll', onScroll);
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-card/95 backdrop-blur-xl shadow-sm border-b border-border' : 'bg-transparent'
+        scrolled
+          ? 'bg-card/95 backdrop-blur-xl shadow-sm border-b border-border'
+          : 'bg-background/90 backdrop-blur-xl'
       }`}
     >
       <div className="container flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2 font-heading font-bold text-xl tracking-tight text-foreground">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <ShoppingBag size={16} className="text-primary-foreground" />
-          </div>
-          <span>
-            SMART<span className="text-gradient">FINDS</span>
-          </span>
+        <Link to="/">
+          <KSLogo />
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
           {Object.entries(CATEGORIES).map(([key, cat]) => (
             <Link
@@ -41,7 +41,7 @@ export function Header() {
               to={`/categoria/${cat.slug}`}
               className={`px-3 py-2 text-sm font-medium rounded-xl transition-all duration-200 hover:bg-secondary ${
                 location.pathname === `/categoria/${cat.slug}`
-                  ? 'bg-primary/10 text-primary font-semibold'
+                  ? 'bg-secondary text-foreground font-semibold'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -59,13 +59,16 @@ export function Header() {
               Admin
             </Link>
           )}
-          <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-foreground rounded-xl hover:bg-secondary transition-colors">
+
+          <button
+            onClick={() => setOpen(!open)}
+            className="lg:hidden p-2 text-foreground rounded-xl hover:bg-secondary transition-colors"
+          >
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile nav */}
       <AnimatePresence>
         {open && (
           <motion.nav
@@ -87,15 +90,6 @@ export function Header() {
                   {cat.label}
                 </Link>
               ))}
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  onClick={() => setOpen(false)}
-                  className="px-4 py-3 text-sm font-semibold rounded-xl hover:bg-secondary text-muted-foreground flex items-center gap-3 transition-colors"
-                >
-                  ⚙️ Admin
-                </Link>
-              )}
             </div>
           </motion.nav>
         )}
