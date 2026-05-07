@@ -6,29 +6,38 @@ export function useAdmin() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const check = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user) {
-        setIsAdmin(false);
-        setLoading(false);
-        return;
-      }
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', session.user.id)
-        .eq('role', 'admin');
+    let mounted = true;
 
-      setIsAdmin(!!roles && roles.length > 0);
-      setLoading(false);
+    const checkSession = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (!mounted) return;
+        setIsAdmin(!!session?.user);
+      } catch (error) {
+        if (!mounted) return;
+        setIsAdmin(false);
+      } finally {
+        if (!mounted) return;
+        setLoading(false);
+      }
     };
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      check();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdmin(!!session?.user);
+      setLoading(false);
     });
 
-    check();
-    return () => subscription.unsubscribe();
+    checkSession();
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   return { isAdmin, loading };
