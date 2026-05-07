@@ -29,7 +29,7 @@ export function Header() {
           : 'bg-background/90 backdrop-blur-xl'
       }`}
     >
-      <div className="container flex items-center justify-between h-16">
+      <div className="container flex items-center justify-between h-20 md:h-24">
         <Link to="/">
           <KSLogo />
         </Link>
