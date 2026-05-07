@@ -13,34 +13,21 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
     if (error) {
-      toast.error('Credenciais inválidas');
-      setLoading(false);
-      return;
-    }
-    // Check admin role
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      toast.error('Erro ao verificar usuário');
-      setLoading(false);
-      return;
-    }
-    const { data: roles } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', user.id)
-      .eq('role', 'admin');
-
-    if (!roles || roles.length === 0) {
-      await supabase.auth.signOut();
-      toast.error('Acesso negado. Você não é administrador.');
+      toast.error(error.message || 'Credenciais inválidas');
       setLoading(false);
       return;
     }
 
-    toast.success('Bem-vindo, admin!');
+    toast.success('Login realizado com sucesso!');
     navigate('/admin');
+    setLoading(false);
   };
 
   return (
@@ -50,42 +37,57 @@ export default function LoginPage() {
           <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-4">
             <ShoppingBag size={24} className="text-primary-foreground" />
           </div>
+
           <h1 className="text-2xl font-heading font-bold uppercase tracking-tight text-foreground">
-            ÁREA RESTRITA
+            KS DEALS ADMIN
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">Acesso exclusivo para administradores</p>
+
+          <p className="text-sm text-muted-foreground mt-1">
+            Painel de gerenciamento de produtos
+          </p>
         </div>
 
-        <form onSubmit={handleLogin} className="bg-card border border-border rounded-2xl p-6 space-y-5">
+        <form
+          onSubmit={handleLogin}
+          className="bg-card border border-border rounded-2xl p-6 space-y-5"
+        >
           <div>
-            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">E-mail</label>
+            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
+              E-mail
+            </label>
+
             <input
               type="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full bg-secondary text-foreground rounded-xl px-4 py-3 text-sm border-0 outline-none focus:ring-2 ring-primary"
-              placeholder="seu@email.com"
+              placeholder="admin@email.com"
             />
           </div>
+
           <div>
-            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Senha</label>
+            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
+              Senha
+            </label>
+
             <input
               type="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full bg-secondary text-foreground rounded-xl px-4 py-3 text-sm border-0 outline-none focus:ring-2 ring-primary"
               placeholder="••••••••"
             />
           </div>
+
           <button
             type="submit"
             disabled={loading}
             className="w-full btn-cta text-primary-foreground font-bold text-base py-4 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
           >
             <Lock size={18} />
-            {loading ? 'Entrando...' : 'ENTRAR'}
+            {loading ? 'Entrando...' : 'ENTRAR NO PAINEL'}
           </button>
         </form>
       </div>
