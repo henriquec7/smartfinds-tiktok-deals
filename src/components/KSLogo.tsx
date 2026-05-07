@@ -5,7 +5,7 @@ export function KSLogo({ compact = false }: { compact?: boolean }) {
     <img
       src={logo}
       alt="KS Deals"
-      className={`shrink-0 w-auto object-contain ${compact ? "h-8" : "h-9 md:h-11"}`}
+      className={`shrink-0 w-auto object-contain ${compact ? "h-10" : "h-12 md:h-16"}`}
       loading="eager"
       decoding="async"
     />
