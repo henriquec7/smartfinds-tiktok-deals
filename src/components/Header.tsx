@@ -35,19 +35,23 @@ export function Header() {
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
-          {Object.entries(CATEGORIES).map(([key, cat]) => (
-            <Link
-              key={key}
-              to={`/categoria/${cat.slug}`}
-              className={`px-3 py-2 text-sm font-medium rounded-xl transition-all duration-200 hover:bg-secondary ${
-                location.pathname === `/categoria/${cat.slug}`
-                  ? 'bg-secondary text-foreground font-semibold'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {cat.label}
-            </Link>
-          ))}
+          {Object.entries(CATEGORIES).map(([key, cat]) => {
+            const to = key === 'copa-do-mundo' ? '/copadomundo' : `/categoria/${cat.slug}`;
+            const active = location.pathname === to;
+            return (
+              <Link
+                key={key}
+                to={to}
+                className={`px-3 py-2 text-sm font-medium rounded-xl transition-all duration-200 hover:bg-secondary ${
+                  active
+                    ? 'bg-secondary text-foreground font-semibold'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {cat.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -79,17 +83,20 @@ export function Header() {
             className="lg:hidden border-t border-border overflow-hidden bg-card/95 backdrop-blur-xl"
           >
             <div className="container py-4 flex flex-col gap-1">
-              {Object.entries(CATEGORIES).map(([key, cat]) => (
-                <Link
-                  key={key}
-                  to={`/categoria/${cat.slug}`}
-                  onClick={() => setOpen(false)}
-                  className="px-4 py-3 text-sm font-semibold rounded-xl hover:bg-secondary text-foreground flex items-center gap-3 transition-colors"
-                >
-                  <span className="text-lg">{cat.icon}</span>
-                  {cat.label}
-                </Link>
-              ))}
+              {Object.entries(CATEGORIES).map(([key, cat]) => {
+                const to = key === 'copa-do-mundo' ? '/copadomundo' : `/categoria/${cat.slug}`;
+                return (
+                  <Link
+                    key={key}
+                    to={to}
+                    onClick={() => setOpen(false)}
+                    className="px-4 py-3 text-sm font-semibold rounded-xl hover:bg-secondary text-foreground flex items-center gap-3 transition-colors"
+                  >
+                    <span className="text-lg">{cat.icon}</span>
+                    {cat.label}
+                  </Link>
+                );
+              })}
             </div>
           </motion.nav>
         )}
