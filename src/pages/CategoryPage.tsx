@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { CATEGORIES, Category } from '@/lib/types';
 import { useProductsByCategory } from '@/hooks/useProducts';
 import { ProductCard } from '@/components/ProductCard';
@@ -7,6 +7,9 @@ import { motion } from 'framer-motion';
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
+  if (slug === 'copa-do-mundo') {
+    return <Navigate to="/copadomundo" replace />;
+  }
   const categoryKey = slug as Category;
   const category = CATEGORIES[categoryKey];
   const { data: products = [], isLoading } = useProductsByCategory(categoryKey);
