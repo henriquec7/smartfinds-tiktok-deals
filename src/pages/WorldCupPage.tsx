@@ -199,8 +199,7 @@ export default function WorldCupPage() {
               Vitrine em preparação
             </h3>
             <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-              Cadastre produtos no admin selecionando a categoria <strong>Copa do Mundo</strong> para
-              eles aparecerem aqui automaticamente.
+              Os achadinhos da Copa estão chegando. Volte em breve para conferir as novidades selecionadas.
             </p>
           </div>
         ) : (
