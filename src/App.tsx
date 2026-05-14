@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import Index from "./pages/Index";
 import ProductPage from "./pages/ProductPage";
 import CategoryPage from "./pages/CategoryPage";
+import WorldCupPage from "./pages/WorldCupPage";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,7 @@ const App = () => (
         <Header />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/copadomundo" element={<WorldCupPage />} />
           <Route path="/produto/:id" element={<ProductPage />} />
           <Route path="/categoria/:slug" element={<CategoryPage />} />
           <Route path="/admin" element={<AdminPage />} />
