@@ -8,6 +8,8 @@ interface ImageUploadProps {
   onChange: (url: string) => void;
 }
 
+const PRODUCT_IMAGES_BUCKET = 'product-images';
+
 export default function ImageUpload({ value, onChange }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [mode, setMode] = useState<'upload' | 'url'>(value && !value.includes('supabase') ? 'url' : 'upload');
@@ -28,19 +30,29 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
     }
 
     setUploading(true);
+
     try {
-      const fileExt = file.name.split('.').pop();
+      const fileExt = file.name.split('.').pop() || 'jpg';
       const fileName = `${crypto.randomUUID()}.${fileExt}`;
 
       const { error: uploadError } = await supabase.storage
-        .from('product-images')
-        .upload(fileName, file);
+        .from(PRODUCT_IMAGES_BUCKET)
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false,
+        });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        if (uploadError.message?.toLowerCase().includes('bucket not found')) {
+          throw new Error('Bucket de imagens não encontrado. Crie um bucket público chamado product-images no Supabase.');
+        }
 
-      const { data: { publicUrl } } = supabase.storage
-        .from('product-images')
-        .getPublicUrl(fileName);
+        throw uploadError;
+      }
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from(PRODUCT_IMAGES_BUCKET).getPublicUrl(fileName);
 
       onChange(publicUrl);
       toast.success('Imagem enviada com sucesso!');
@@ -48,6 +60,7 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
       toast.error('Erro ao enviar imagem: ' + (err.message || 'tente novamente'));
     } finally {
       setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -55,7 +68,6 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
     <div className="space-y-2">
       <label className="text-xs font-medium text-muted-foreground mb-1 block">Imagem do Produto</label>
 
-      {/* Toggle between upload and URL */}
       <div className="flex gap-1 bg-secondary rounded-lg p-1">
         <button
           type="button"
@@ -66,6 +78,7 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
         >
           <Upload size={14} /> Enviar Foto
         </button>
+
         <button
           type="button"
           onClick={() => setMode('url')}
@@ -86,6 +99,7 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
             onChange={handleFileUpload}
             className="hidden"
           />
+
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
@@ -110,12 +124,11 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
         <input
           placeholder="https://exemplo.com/imagem.jpg"
           value={value}
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           className="w-full bg-secondary text-foreground rounded-lg px-4 py-2.5 text-sm border-0 outline-none focus:ring-2 ring-primary"
         />
       )}
 
-      {/* Preview */}
       {value && (
         <div className="relative w-full h-32 rounded-lg overflow-hidden bg-secondary">
           <img
@@ -126,6 +139,7 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
+
           <button
             type="button"
             onClick={() => onChange('')}
