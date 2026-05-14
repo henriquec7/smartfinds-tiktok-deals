@@ -58,7 +58,7 @@ export default function ProductPage() {
         <div className="flex flex-col">
           {category && (
             <Link
-              to={`/categoria/${category.slug}`}
+              to={category.slug === 'copa-do-mundo' ? '/copadomundo' : `/categoria/${category.slug}`}
               className="text-xs font-bold uppercase tracking-widest text-primary self-start mb-4"
             >
               {category.icon} {category.label}
