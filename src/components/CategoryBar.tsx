@@ -25,7 +25,7 @@ export function CategoryBar() {
               transition={{ duration: 0.4, delay: i * 0.08 }}
             >
               <Link
-                to={`/categoria/${cat.slug}`}
+                to={key === 'copa-do-mundo' ? '/copadomundo' : `/categoria/${cat.slug}`}
                 className={`category-chip ${categoryColors[key] || 'border-border bg-card'}`}
               >
                 <span className="text-lg">{cat.icon}</span>
