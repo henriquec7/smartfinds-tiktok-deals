@@ -12,6 +12,7 @@ import CategoryPage from "./pages/CategoryPage";
 import WorldCupPage from "./pages/WorldCupPage";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
+import InstallAdminPage from "./pages/InstallAdminPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/categoria/:slug" element={<CategoryPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/instalar-admin" element={<InstallAdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
