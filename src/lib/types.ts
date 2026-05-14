@@ -13,6 +13,7 @@ export interface Product {
 }
 
 export type Category =
+  | 'copa-do-mundo'
   | 'cozinha-pratica'
   | 'limpeza-inteligente'
   | 'organizacao'
@@ -20,6 +21,7 @@ export type Category =
   | 'setup-quarto';
 
 export const CATEGORIES: Record<Category, { label: string; icon: string; slug: string }> = {
+  'copa-do-mundo': { label: 'Copa do Mundo', icon: '🏆', slug: 'copa-do-mundo' },
   'cozinha-pratica': { label: 'Cozinha Prática', icon: '🍳', slug: 'cozinha-pratica' },
   'limpeza-inteligente': { label: 'Limpeza Inteligente', icon: '✨', slug: 'limpeza-inteligente' },
   'organizacao': { label: 'Organização', icon: '📦', slug: 'organizacao' },
