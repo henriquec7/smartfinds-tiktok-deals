@@ -29,9 +29,13 @@ export function ConversionBanner() {
             Clique para conferir o preço atualizado na loja oficial. Os valores podem mudar conforme disponibilidade, promoção e estoque do vendedor.
           </p>
 
-          <a href="#destaques" className="btn-cta py-3.5 px-8 text-sm uppercase tracking-wider mt-6 inline-flex">
+          <button
+            type="button"
+            onClick={() => document.getElementById('destaques')?.scrollIntoView({ behavior: 'smooth' })}
+            className="btn-cta py-3.5 px-8 text-sm uppercase tracking-wider mt-6 inline-flex"
+          >
             CONFERIR PRODUTOS EM DESTAQUE
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>
