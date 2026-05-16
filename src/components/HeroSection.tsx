@@ -43,9 +43,13 @@ export function HeroSection() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 mt-8">
-            <a href="#destaques" className="btn-cta py-4 px-8 text-sm uppercase tracking-wider">
+            <button
+              type="button"
+              onClick={() => document.getElementById('destaques')?.scrollIntoView({ behavior: 'smooth' })}
+              className="btn-cta py-4 px-8 text-sm uppercase tracking-wider"
+            >
               VER PRODUTOS EM DESTAQUE <ArrowRight size={16} />
-            </a>
+            </button>
           </div>
         </motion.div>
       </div>
