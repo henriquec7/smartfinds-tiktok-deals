@@ -18,16 +18,16 @@ export function HeroSection() {
         >
           <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary-foreground text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
             <TrendingUp size={14} />
-            ACHADINHOS E OFERTAS DO MOMENTO
+            OFERTAS GAMER DO MOMENTO
           </div>
 
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-heading uppercase leading-[1.1] text-primary-foreground tracking-tight">
-            PRODUTOS QUE ESTÃO EM ALTA E{' '}
-            <span className="text-primary">VALEM O CLIQUE</span>
+            SETUP, HARDWARE E COLECIONÁVEIS{' '}
+            <span className="text-primary">QUE VALEM O CLIQUE</span>
           </h1>
 
           <p className="text-primary-foreground/80 text-base md:text-lg mt-5 max-w-lg leading-relaxed">
-            Uma vitrine com produtos selecionados por categoria para você conferir o preço atualizado direto na loja oficial.
+            Uma vitrine gamer com Funko Pop, periféricos, hardware e setup — preço atualizado direto na Shopee ou Mercado Livre.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 text-primary-foreground/85 text-xs font-semibold uppercase tracking-wider">

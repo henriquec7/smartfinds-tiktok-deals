@@ -36,7 +36,7 @@ export function Header() {
 
         <nav className="hidden lg:flex items-center gap-1">
           {Object.entries(CATEGORIES).map(([key, cat]) => {
-            const to = key === 'copa-do-mundo' ? '/copadomundo' : `/categoria/${cat.slug}`;
+            const to = `/categoria/${cat.slug}`;
             const active = location.pathname === to;
             return (
               <Link
@@ -84,7 +84,7 @@ export function Header() {
           >
             <div className="container py-4 flex flex-col gap-1">
               {Object.entries(CATEGORIES).map(([key, cat]) => {
-                const to = key === 'copa-do-mundo' ? '/copadomundo' : `/categoria/${cat.slug}`;
+                const to = `/categoria/${cat.slug}`;
                 return (
                   <Link
                     key={key}
