@@ -7,9 +7,6 @@ import { motion } from 'framer-motion';
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
-  if (slug === 'copa-do-mundo') {
-    return <Navigate to="/copadomundo" replace />;
-  }
   const categoryKey = slug as Category;
   const category = CATEGORIES[categoryKey];
   const { data: products = [], isLoading } = useProductsByCategory(categoryKey);

@@ -8,8 +8,7 @@ export function Footer() {
           <KSLogo compact />
 
           <p className="text-xs text-muted-foreground text-center max-w-sm leading-relaxed">
-            Este site pode receber comissão por compras realizadas através dos links.
-            Isso não altera o preço final para você.
+            Site afiliado à Shopee e ao Mercado Livre. Podemos receber comissão por compras realizadas através dos links, sem alterar o preço final para você.
           </p>
 
           <p className="text-xs text-muted-foreground">
