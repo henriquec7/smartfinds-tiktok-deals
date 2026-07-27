@@ -15,7 +15,7 @@ const emptyProduct: Omit<Product, 'id' | 'createdAt'> = {
   whyWorthIt: '',
   imageUrl: '',
   affiliateUrl: '',
-  category: 'cozinha-pratica',
+  category: 'perifericos',
   badge: undefined,
   price: '',
 };
@@ -167,7 +167,7 @@ export default function AdminPage() {
           />
 
           <input
-            placeholder="Link de afiliado (Shopee, Amazon, etc)"
+            placeholder="Link de afiliado (Shopee, Mercado Livre, etc)"
             value={form.affiliateUrl}
             onChange={e => setForm({ ...form, affiliateUrl: e.target.value })}
             className="w-full bg-secondary text-foreground rounded-lg px-4 py-2.5 text-sm border-0 outline-none focus:ring-2 ring-primary"
