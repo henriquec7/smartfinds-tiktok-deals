@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { CATEGORIES, Category } from '@/lib/types';
 import { useProductsByCategory } from '@/hooks/useProducts';
 import { ProductCard } from '@/components/ProductCard';
