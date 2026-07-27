@@ -13,18 +13,16 @@ export interface Product {
 }
 
 export type Category =
-  | 'copa-do-mundo'
-  | 'cozinha-pratica'
-  | 'limpeza-inteligente'
-  | 'organizacao'
-  | 'utilidades'
-  | 'setup-quarto';
+  | 'funko-pop'
+  | 'perifericos'
+  | 'hardware'
+  | 'setup-gamer'
+  | 'acessorios';
 
 export const CATEGORIES: Record<Category, { label: string; icon: string; slug: string }> = {
-  'copa-do-mundo': { label: 'Copa do Mundo', icon: '🏆', slug: 'copa-do-mundo' },
-  'cozinha-pratica': { label: 'Cozinha Prática', icon: '🍳', slug: 'cozinha-pratica' },
-  'limpeza-inteligente': { label: 'Limpeza Inteligente', icon: '✨', slug: 'limpeza-inteligente' },
-  'organizacao': { label: 'Organização', icon: '📦', slug: 'organizacao' },
-  'utilidades': { label: 'Utilidades do Dia a Dia', icon: '🛠️', slug: 'utilidades' },
-  'setup-quarto': { label: 'Setup & Quarto', icon: '🖥️', slug: 'setup-quarto' },
+  'funko-pop': { label: 'Funko Pop', icon: '🎭', slug: 'funko-pop' },
+  'perifericos': { label: 'Periféricos', icon: '🎮', slug: 'perifericos' },
+  'hardware': { label: 'Hardware', icon: '💻', slug: 'hardware' },
+  'setup-gamer': { label: 'Setup Gamer', icon: '🖥️', slug: 'setup-gamer' },
+  'acessorios': { label: 'Acessórios', icon: '🎧', slug: 'acessorios' },
 };
