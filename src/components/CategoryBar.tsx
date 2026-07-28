@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
 const categoryColors: Record<string, string> = {
-  'funko-pop': 'border-pink-400/30 bg-pink-400/5 hover:bg-pink-400/10 hover:border-pink-400/50',
-  'perifericos': 'border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50',
-  'hardware': 'border-blue-400/30 bg-blue-400/5 hover:bg-blue-400/10 hover:border-blue-400/50',
-  'setup-gamer': 'border-violet-400/30 bg-violet-400/5 hover:bg-violet-400/10 hover:border-violet-400/50',
-  'acessorios': 'border-emerald-400/30 bg-emerald-400/5 hover:bg-emerald-400/10 hover:border-emerald-400/50',
+  'cozinha': 'border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50',
+  'organizacao': 'border-emerald-400/30 bg-emerald-400/5 hover:bg-emerald-400/10 hover:border-emerald-400/50',
+  'casa-decor': 'border-amber-400/30 bg-amber-400/5 hover:bg-amber-400/10 hover:border-amber-400/50',
+  'utensilios': 'border-rose-400/30 bg-rose-400/5 hover:bg-rose-400/10 hover:border-rose-400/50',
+  'limpeza': 'border-sky-400/30 bg-sky-400/5 hover:bg-sky-400/10 hover:border-sky-400/50',
 };
 
 export function CategoryBar() {

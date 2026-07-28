@@ -15,7 +15,7 @@ const emptyProduct: Omit<Product, 'id' | 'createdAt'> = {
   whyWorthIt: '',
   imageUrl: '',
   affiliateUrl: '',
-  category: 'perifericos',
+  category: 'cozinha',
   badge: undefined,
   price: '',
 };
