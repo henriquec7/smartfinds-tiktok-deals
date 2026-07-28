@@ -13,16 +13,16 @@ export interface Product {
 }
 
 export type Category =
-  | 'funko-pop'
-  | 'perifericos'
-  | 'hardware'
-  | 'setup-gamer'
-  | 'acessorios';
+  | 'cozinha'
+  | 'organizacao'
+  | 'casa-decor'
+  | 'utensilios'
+  | 'limpeza';
 
 export const CATEGORIES: Record<Category, { label: string; icon: string; slug: string }> = {
-  'funko-pop': { label: 'Funko Pop', icon: '🎭', slug: 'funko-pop' },
-  'perifericos': { label: 'Periféricos', icon: '🎮', slug: 'perifericos' },
-  'hardware': { label: 'Hardware', icon: '💻', slug: 'hardware' },
-  'setup-gamer': { label: 'Setup Gamer', icon: '🖥️', slug: 'setup-gamer' },
-  'acessorios': { label: 'Acessórios', icon: '🎧', slug: 'acessorios' },
+  'cozinha': { label: 'Cozinha', icon: '🍳', slug: 'cozinha' },
+  'organizacao': { label: 'Organização', icon: '🧺', slug: 'organizacao' },
+  'casa-decor': { label: 'Casa & Decoração', icon: '🏠', slug: 'casa-decor' },
+  'utensilios': { label: 'Utensílios', icon: '✨', slug: 'utensilios' },
+  'limpeza': { label: 'Limpeza', icon: '🧽', slug: 'limpeza' },
 };
